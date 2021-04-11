@@ -1,9 +1,7 @@
 package se.sdaproject.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Article {
@@ -13,6 +11,9 @@ public class Article {
     private String title;
     private String body;
     private String authorName;
+
+    @OneToMany(mappedBy = "article")
+    private List<Comment> comments;
 
     public Article() {
     }
@@ -53,5 +54,9 @@ public class Article {
 
     public String getAuthorName() {
         return authorName;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }

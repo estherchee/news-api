@@ -2,7 +2,7 @@ package se.sdaproject.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.sdaproject.ArticleNotFoundException;
+import se.sdaproject.Exceptions.ResourceNotFoundException;
 import se.sdaproject.Models.Article;
 import se.sdaproject.Repositories.ArticleRepository;
 
@@ -25,7 +25,7 @@ public class ArticleController {
     @GetMapping("/articles/{id}")
     public Article getArticle(@PathVariable Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ArticleNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     @PostMapping("/articles")
