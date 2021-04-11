@@ -10,7 +10,6 @@ import se.sdaproject.Repositories.ArticleRepository;
 import se.sdaproject.Repositories.CommentRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class CommentController {

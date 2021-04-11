@@ -11,9 +11,10 @@ public class Article {
     private String title;
     private String body;
     private String authorName;
-
     @OneToMany(mappedBy = "article")
     private List<Comment> comments;
+    @ManyToMany(mappedBy = "articles")
+    private List<Topic> topics;
 
     public Article() {
     }
@@ -54,5 +55,9 @@ public class Article {
 
     public String getAuthorName() {
         return authorName;
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
     }
 }
