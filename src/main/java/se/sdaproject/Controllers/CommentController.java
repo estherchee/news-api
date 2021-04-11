@@ -24,17 +24,12 @@ public class CommentController {
 
     @GetMapping("/articles/{articleId}/comments")
     public List<Comment> getAllCommentsForArticle(@PathVariable Long articleId) {
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new ResourceNotFoundException(articleId));
-        return article.getComments();
+        return commentRepository.findAllCommentsForArticle(articleId);
     }
 
     @RequestMapping(value = "comments", method = RequestMethod.GET)
     public List<Comment> getAllCommentsFromAuthor(@RequestParam("authorName") String authorName) {
-        return commentRepository.findAll()
-                .stream()
-                .filter(comment -> comment.getAuthorName().equals(authorName))
-                .collect(Collectors.toList());
+        return commentRepository.findAllCommentsFromAuthor(authorName);
     }
 
     @PostMapping("/articles/{articleId}/comments")

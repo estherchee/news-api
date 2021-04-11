@@ -15,7 +15,7 @@ public class Comment {
     private String body;
     private String authorName;
     @ManyToOne
-    @JsonIgnore
+
     private Article article;
 
     public Comment() {

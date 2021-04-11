@@ -55,8 +55,4 @@ public class Article {
     public String getAuthorName() {
         return authorName;
     }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
 }
