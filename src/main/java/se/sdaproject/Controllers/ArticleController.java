@@ -37,13 +37,13 @@ public class ArticleController {
     public Article updateArticle(@RequestBody Article newArticle, @PathVariable Long id) {
         return repository.findById(id)
                 .map(article -> {
-                    if(newArticle.getTitle() != null) {
+                    if (newArticle.getTitle() != null) {
                         article.setTitle(newArticle.getTitle());
                     }
-                    if(newArticle.getBody() != null) {
+                    if (newArticle.getBody() != null) {
                         article.setBody(newArticle.getBody());
                     }
-                    if(newArticle.getAuthorName() != null) {
+                    if (newArticle.getAuthorName() != null) {
                         article.setAuthorName(newArticle.getAuthorName());
                     }
                     return repository.save(article);
