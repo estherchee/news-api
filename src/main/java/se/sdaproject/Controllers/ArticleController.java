@@ -1,9 +1,7 @@
 package se.sdaproject.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.sdaproject.ArticleNotFoundException;
 import se.sdaproject.Models.Article;
 import se.sdaproject.Repositories.ArticleRepository;
@@ -28,5 +26,36 @@ public class ArticleController {
     public Article getArticle(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ArticleNotFoundException(id));
+    }
+
+    @PostMapping("/articles")
+    public Article addArticle(@RequestBody Article article) {
+        return repository.save(article);
+    }
+
+    @PutMapping("articles/{id}")
+    public Article updateArticle(@RequestBody Article newArticle, @PathVariable Long id) {
+        return repository.findById(id)
+                .map(article -> {
+                    if(newArticle.getTitle() != null) {
+                        article.setTitle(newArticle.getTitle());
+                    }
+                    if(newArticle.getBody() != null) {
+                        article.setBody(newArticle.getBody());
+                    }
+                    if(newArticle.getAuthorName() != null) {
+                        article.setAuthorName(newArticle.getAuthorName());
+                    }
+                    return repository.save(article);
+                })
+                .orElseGet(() -> {
+                    newArticle.setId(id);
+                    return repository.save(newArticle);
+                });
+    }
+
+    @DeleteMapping("/articles/{id}")
+    public void deleteArticle(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 }

@@ -23,8 +23,8 @@ public class Article {
         this.authorName = authorName;
     }
 
-    public Long getId() {
-        return id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setTitle(String title) {
@@ -37,6 +37,10 @@ public class Article {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
