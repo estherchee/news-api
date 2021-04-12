@@ -2,60 +2,43 @@ package se.sdaproject.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.sdaproject.Exceptions.ResourceNotFoundException;
 import se.sdaproject.Models.Article;
-import se.sdaproject.Repositories.ArticleRepository;
+import se.sdaproject.Services.ArticleService;
 
 import java.util.List;
 
 @RestController
 public class ArticleController {
-    ArticleRepository repository;
+
+    private final ArticleService articleService;
 
     @Autowired
-    public ArticleController(ArticleRepository repository) {
-        this.repository = repository;
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
     }
 
     @GetMapping("/articles")
     public List<Article> listAllArticles() {
-        return repository.findAll();
+        return articleService.findAllArticles();
     }
 
     @GetMapping("/articles/{id}")
-    public Article getArticle(@PathVariable Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+    public Article getArticle(@PathVariable long id) {
+        return articleService.findArticleById(id);
     }
 
     @PostMapping("/articles")
     public Article addArticle(@RequestBody Article article) {
-        return repository.save(article);
+        return articleService.addArticle(article);
     }
 
     @PutMapping("articles/{id}")
     public Article updateArticle(@RequestBody Article newArticle, @PathVariable Long id) {
-        return repository.findById(id)
-                .map(article -> {
-                    if (newArticle.getTitle() != null) {
-                        article.setTitle(newArticle.getTitle());
-                    }
-                    if (newArticle.getBody() != null) {
-                        article.setBody(newArticle.getBody());
-                    }
-                    if (newArticle.getAuthorName() != null) {
-                        article.setAuthorName(newArticle.getAuthorName());
-                    }
-                    return repository.save(article);
-                })
-                .orElseGet(() -> {
-                    newArticle.setId(id);
-                    return repository.save(newArticle);
-                });
+        return articleService.updateArticle(newArticle, id);
     }
 
     @DeleteMapping("/articles/{id}")
     public void deleteArticle(@PathVariable Long id) {
-        repository.deleteById(id);
+        articleService.deleteArticle(id);
     }
 }
