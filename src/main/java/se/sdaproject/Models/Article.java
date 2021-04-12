@@ -11,7 +11,7 @@ public class Article {
     private String title;
     private String body;
     private String authorName;
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments;
     @ManyToMany(mappedBy = "articles")
     private List<Topic> topics;

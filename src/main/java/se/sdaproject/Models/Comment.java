@@ -10,7 +10,6 @@ public class Comment {
     private String body;
     private String authorName;
     @ManyToOne
-
     private Article article;
 
     public Comment() {
