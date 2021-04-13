@@ -1,6 +1,8 @@
 package se.sdaproject.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.sdaproject.Models.Article;
 import se.sdaproject.Services.ArticleService;
@@ -28,8 +30,11 @@ public class ArticleController {
     }
 
     @PostMapping("/articles")
-    public Article addArticle(@RequestBody Article article) {
-        return articleService.addArticle(article);
+    public ResponseEntity<Article> addArticle(@RequestBody Article article) {
+        Article createdArticle = articleService.addArticle(article);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createdArticle);
     }
 
     @PutMapping("articles/{id}")
