@@ -49,13 +49,15 @@ public class TopicController {
     }
 
     @DeleteMapping("/topics/{id}")
-    public void deleteTopic(@PathVariable long id) {
+    public ResponseEntity<Void> deleteTopic(@PathVariable long id) {
         topicService.deleteTopic(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/articles/{articleId}/topics/{topicId}")
-    public void unlinkArticleAndTopic(@PathVariable long articleId, @PathVariable long topicId) {
+    public ResponseEntity<Void> unlinkArticleAndTopic(@PathVariable long articleId, @PathVariable long topicId) {
         topicService.unlinkArticleAndTopic(articleId, topicId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/topics/{topicId}/articles")

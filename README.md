@@ -123,7 +123,7 @@ Content-Type: application/json
 ```
 **Example response:**
 ```json
-HTTP/2 200 OK
+HTTP/2 204 No Content
 ```
 
 ### Return all comments on article given by articleId
@@ -242,7 +242,7 @@ Content-Type: application/json
 ]
 ```
 
-### Delete the given comment.
+### Delete the given comment
 **Example request:**
 ```json
 DELETE /comments/1 HTTP/2
@@ -251,5 +251,5 @@ Content-Type: application/json
 ```
 **Example response:**
 ```json
-HTTP/2 200 Ok
+HTTP/2 204 No Content
 ```
